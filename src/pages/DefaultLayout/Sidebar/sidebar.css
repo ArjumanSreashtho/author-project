@@ -1,0 +1,12 @@
+.sidebar-layout {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 991px) {
+  .sidebar-layout {
+    position: absolute;
+  }
+}

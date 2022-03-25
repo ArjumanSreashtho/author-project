@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Spinner from './components/Spinner/Spinner';
+
+import urls from './constants/urls';
+
 import './App.css';
 
-function App() {
+// Lazy loading components
+const DefaultLayout = lazy(() => import('./pages/DefaultLayout'));
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Suspense fallback={<Spinner />}>
+        <Routes>
+          <Route path={urls.DEFAULT} element={<DefaultLayout />}/>
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 
