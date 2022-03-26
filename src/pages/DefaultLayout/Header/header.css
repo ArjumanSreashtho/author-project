@@ -2,3 +2,24 @@
   height: 64px;
   background: white;
 }
+
+.header-icon {
+  float: left;
+  width: 205px;
+  height: 40px;
+  margin: 16px 16px 16px 0;
+  background: rgb(87, 86, 86);
+  border-radius: 5px;
+}
+
+.collapse-icon:hover {
+  color: blue;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 476px) {
+  .header-icon {
+    width: 40px;
+    border-radius: 50%;
+  }
+}

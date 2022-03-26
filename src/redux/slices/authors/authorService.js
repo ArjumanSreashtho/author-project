@@ -35,7 +35,7 @@ const addFavoriteAuthor = (author) => {
   }
   favoriteAuthors.push(author);
   localStorage.setItem("favoriteAuthors", JSON.stringify(favoriteAuthors));
-  return favoriteAuthors;
+  return `${author.name} has been added to favorite authors`;
 }
 
 const removeFavoriteAuthor = (author) => {
@@ -47,7 +47,7 @@ const removeFavoriteAuthor = (author) => {
   }
   favoriteAuthors.splice(favoriteAuthorIndex, 1);
   localStorage.setItem("favoriteAuthors", JSON.stringify(favoriteAuthors));
-  return favoriteAuthors;
+  return `${author.name} has been removed from favorite authors`;
 }
 
 export default {

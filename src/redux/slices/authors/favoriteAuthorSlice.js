@@ -60,21 +60,25 @@ export const removeFavoriteAuthor = createAsyncThunk('authors/removeFavoriteAuth
   }
 })
 
+
 export const favoriteAuthorsSlice = createSlice({
   name: "favoriteAuthors",
   initialState,
   reducers: {
-    reset: (state) => initialState
+    reset: (state) => {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
         .addCase(addFavoriteAuthor.pending, (state) => {
           state.isLoading = true;
+          state.responseMessage = '';
         })
         .addCase(addFavoriteAuthor.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
-          state.favoriteAuthors = action.payload;
+          state.responseMessage = action.payload
         })
         .addCase(addFavoriteAuthor.rejected, (state, action) => {
           state.isLoading = false;
@@ -83,27 +87,34 @@ export const favoriteAuthorsSlice = createSlice({
         })
         .addCase(removeFavoriteAuthor.pending, (state) => {
           state.isLoading = true;
+          state.responseMessage = '';
         })
         .addCase(removeFavoriteAuthor.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
-          state.favoriteAuthors = action.payload;
+          state.isError = false;
+          state.responseMessage = action.payload;
         })
         .addCase(removeFavoriteAuthor.rejected, (state, action) => {
           state.isLoading = false;
+          state.isSuccess = false;
           state.isError = true;
           state.responseMessage = action.payload;
         })
         .addCase(getFavoriteAuthors.pending, (state) => {
           state.isLoading = true;
+          state.responseMessage = '';
         })
         .addCase(getFavoriteAuthors.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
+          state.isError = false;
+          state.responseMessage = '';
           state.favoriteAuthors = action.payload;
         })
         .addCase(getFavoriteAuthors.rejected, (state, action) => {
           state.isLoading = false;
+          state.isSuccess = false;
           state.isError = true;
           state.responseMessage = action.payload;
         })

@@ -15,6 +15,15 @@ const DefaultLayout = () => {
     })
   }
 
+  window.addEventListener('resize', () => {
+    if(window.innerWidth <= 991) {
+      setCollapseSidebar(true)
+    }
+    else {
+      setCollapseSidebar(false);
+    }
+  })
+
   return (
     <Layout>
       <Header collapseSidebar={collapseSidebar} handleChangeCollapseSidebar={handleChangeCollapseSidebar}/>

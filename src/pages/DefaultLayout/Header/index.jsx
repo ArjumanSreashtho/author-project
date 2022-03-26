@@ -13,11 +13,8 @@ const { Header: AntHeader } = Layout;
 const Header = ({ collapseSidebar, handleChangeCollapseSidebar }) => {
   return (
     <AntHeader className="header" >
-      
-      {React.createElement(collapseSidebar ? MenuUnfoldOutlined : MenuFoldOutlined, {
-        className: 'trigger',
-        onClick: handleChangeCollapseSidebar,
-      })}
+      <div className='header-icon' />
+      <span className='collapse-icon' onClick={handleChangeCollapseSidebar} >{collapseSidebar ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}</span>
     </AntHeader>
   )
 }

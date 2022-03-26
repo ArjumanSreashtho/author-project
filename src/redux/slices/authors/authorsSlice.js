@@ -30,16 +30,20 @@ export const authorsSlice = createSlice({
   name: "authors",
   initialState,
   reducers: {
-    reset: (state) => initialState
+    reset: (state) => {
+      return initialState;
+    }
   },
   extraReducers: (builder) => {
     builder
         .addCase(getAuthors.pending, (state) => {
           state.isLoading = true;
+          state.responseMessage = '';
         })
         .addCase(getAuthors.fulfilled, (state, action) => {
           state.isLoading = false;
           state.isSuccess = true;
+          state.responseMessage = '';
           state.authors = action.payload;
         })
         .addCase(getAuthors.rejected, (state, action) => {

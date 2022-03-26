@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { reset, getFavoriteAuthors } from '../../../redux/slices/authors/favoriteAuthorSlice';
 import ListItemComponent from '../../../components/ListItemComponent';
 import Skeleton from '../../../components/Skeleton';
+import Notification from '../../../components/Notification';
 
 const FavoriteAuthors = () => {
 
@@ -15,7 +16,7 @@ const FavoriteAuthors = () => {
   const [filters, setFilters] = useState(initialFilterState);
   const dispatch = useDispatch();
 
-  const { favoriteAuthors, isLoading } = useSelector((state) => state.favoriteAuthors);
+  const { favoriteAuthors, isLoading, responseMessage } = useSelector((state) => state.favoriteAuthors);
   const { limit, currentPage } = filters;
 
   const handleChange = ({page, pageSize}) => {
@@ -30,16 +31,16 @@ const FavoriteAuthors = () => {
   }
 
   useEffect(() => {
-    dispatch(getFavoriteAuthors(filters));
+    dispatch(getFavoriteAuthors(filters));    
     return () => {
       dispatch(reset());
     }
-  }, [ favoriteAuthors, limit, currentPage ]);
+  }, [ limit, currentPage, dispatch, responseMessage ]);
 
   return (
     <>
       <Skeleton loading={isLoading} rows={5}/>
-      <ListItemComponent authors={favoriteAuthors} isLoading={isLoading} handleChange={handleChange}/>
+      <ListItemComponent authors={favoriteAuthors} isLoading={isLoading} isFavorite={true} handleChange={handleChange}/>
     </>
   )
 }

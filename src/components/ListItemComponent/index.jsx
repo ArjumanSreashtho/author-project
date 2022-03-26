@@ -1,15 +1,18 @@
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { List, Card, Avatar, Typography, Tooltip, Pagination } from 'antd';
 import { StarOutlined, DeleteOutlined } from '@ant-design/icons';
 
-import { addFavoriteAuthor, removeFavoriteAuthor } from '../../redux/slices/authors/favoriteAuthorSlice';
+import { addFavoriteAuthor, removeFavoriteAuthor, reset as favoriteAuthorsReset } from '../../redux/slices/authors/favoriteAuthorSlice';
+import Notification from '../Notification';
 
 const { Meta } = Card;
 const { Paragraph } = Typography;
 
-const ListItemComponent = ({ authors, isLoading, handleChange }) => {
+const ListItemComponent = ({ authors, isFavorite, isLoading, handleChange }) => {
 
+  const { isSuccess, isError, responseMessage } = useSelector((state) => state.favoriteAuthors);
   const dispatch = useDispatch();
 
   const handleAddToFavorite = (author) => {
@@ -19,6 +22,21 @@ const ListItemComponent = ({ authors, isLoading, handleChange }) => {
   const handleRemoveFavorite = (author) => {
     dispatch(removeFavoriteAuthor(author));
   }
+
+  useEffect(() => {    
+    if(responseMessage.length > 0) {
+      Notification({
+        type: isSuccess ? "success" : isError ? "error" : "",
+        message: isSuccess ? "Success" : isError ? "Error" : "",
+        description: responseMessage
+      })
+    }
+
+    return () => {
+      dispatch(favoriteAuthorsReset());
+    }
+
+  }, [responseMessage])
 
   return (
     <div style={{padding: "15px",  display: isLoading ? "none" : "block"}}>
@@ -38,6 +56,12 @@ const ListItemComponent = ({ authors, isLoading, handleChange }) => {
             <Card
               hoverable
               actions={
+                isFavorite ?
+                [
+                  <Tooltip title="Remove favorite"><DeleteOutlined key="remove_favorite" style={{color: "red"}} onClick={() => handleRemoveFavorite(author)}/></Tooltip>,
+                ]
+                :
+                
                 [
                   <Tooltip title="Add favorite" ><StarOutlined key="add_favorite" style={{color: "blue"}} onClick={() => handleAddToFavorite(author)}/></Tooltip>,
                   <Tooltip title="Remove favorite"><DeleteOutlined key="remove_favorite" style={{color: "red"}} onClick={() => handleRemoveFavorite(author)}/></Tooltip>,

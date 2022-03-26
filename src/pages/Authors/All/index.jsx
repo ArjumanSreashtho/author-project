@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { reset, getAuthors } from '../../../redux/slices/authors/authorsSlice';
+import { reset as favoriteAuthorReset } from '../../../redux/slices/authors/favoriteAuthorSlice';
+
 import ListItemComponent from '../../../components/ListItemComponent';
 import Skeleton from '../../../components/Skeleton';
 
@@ -33,13 +35,14 @@ const AllAuthors = () => {
     dispatch(getAuthors(filters));
     return () => {
       dispatch(reset());
+      dispatch(favoriteAuthorReset());
     }
-  }, [ limit, currentPage ]);
+  }, [ limit, currentPage, dispatch ]);
 
   return (
     <>
       <Skeleton loading={isLoading} rows={5}/>
-      <ListItemComponent authors={authors} isLoading={isLoading} handleChange={handleChange} />
+      <ListItemComponent authors={authors} isLoading={isLoading} isFavorite={false} handleChange={handleChange} />
     </>
   )
 }

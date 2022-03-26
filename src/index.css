@@ -14,3 +14,7 @@ code {
 }
 
 @import "~antd/dist/antd.css";
+
+.ant-layout-header {
+  padding: 0 25px !important;
+}
