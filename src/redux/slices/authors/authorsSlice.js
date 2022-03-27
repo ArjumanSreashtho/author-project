@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import authorService from './authorService';
+import authorService from '../../../services/authorService';
 
 const initialState = {
   authors: {},
