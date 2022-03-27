@@ -31,16 +31,16 @@ const FavoriteAuthors = () => {
   }
 
   useEffect(() => {
-    dispatch(getFavoriteAuthors(filters));    
+    dispatch(getFavoriteAuthors(filters));
     return () => {
       dispatch(reset());
     }
-  }, [ limit, currentPage, dispatch, responseMessage ]);
+  }, [ limit, currentPage, dispatch, responseMessage, ]);
 
   return (
     <>
       <Skeleton loading={isLoading} rows={5}/>
-      <ListItemComponent authors={favoriteAuthors} isLoading={isLoading} isFavorite={true} handleChange={handleChange}/>
+      <ListItemComponent filters={filters} authors={favoriteAuthors} isLoading={isLoading} isFavorite={true} handleChange={handleChange}/>
     </>
   )
 }

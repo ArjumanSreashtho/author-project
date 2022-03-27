@@ -10,7 +10,7 @@ import Notification from '../Notification';
 const { Meta } = Card;
 const { Paragraph } = Typography;
 
-const ListItemComponent = ({ authors, isFavorite, isLoading, handleChange }) => {
+const ListItemComponent = ({ filters, authors, isFavorite, isLoading, handleChange }) => {
 
   const { isSuccess, isError, responseMessage } = useSelector((state) => state.favoriteAuthors);
   const dispatch = useDispatch();
@@ -98,8 +98,8 @@ const ListItemComponent = ({ authors, isFavorite, isLoading, handleChange }) => 
       <Pagination
         style={{float: "right"}}
         total={authors.totalCount}          
-        pageSize={authors.count || 10}
-        current={authors.page || 1}
+        pageSize={filters.limit || 10}
+        current={filters.currentPage || 1}
         size='small'
         onChange={(page, pageSize) => handleChange({page, pageSize})}
       />

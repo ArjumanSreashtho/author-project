@@ -42,7 +42,7 @@ const AllAuthors = () => {
   return (
     <>
       <Skeleton loading={isLoading} rows={5}/>
-      <ListItemComponent authors={authors} isLoading={isLoading} isFavorite={false} handleChange={handleChange} />
+      <ListItemComponent filters={filters} authors={authors} isLoading={isLoading} isFavorite={false} handleChange={handleChange} />
     </>
   )
 }
